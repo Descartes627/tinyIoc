@@ -1,6 +1,6 @@
-package com.dag.tinyioc;
+package com.dag.tinyioc.beans;
 
-import com.dag.tinyioc.io.ResourceLoader;
+import com.dag.tinyioc.beans.io.ResourceLoader;
 
 import java.util.HashMap;
 import java.util.Map;

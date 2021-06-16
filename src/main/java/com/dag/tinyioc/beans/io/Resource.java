@@ -1,4 +1,4 @@
-package com.dag.tinyioc.io;
+package com.dag.tinyioc.beans.io;
 
 import java.io.InputStream;
 

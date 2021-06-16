@@ -1,8 +1,7 @@
-package com.dag.tinyioc.xml;
+package com.dag.tinyioc.beans.xml;
 
 
-import com.dag.tinyioc.BeanDefinitionReader;
-import com.dag.tinyioc.io.ResourceLoader;
+import com.dag.tinyioc.beans.io.ResourceLoader;
 import org.junit.Test;
 
 /**

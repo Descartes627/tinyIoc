@@ -1,8 +1,8 @@
-package com.dag.tinyioc.factory;
+package com.dag.tinyioc.beans.factory;
 
-import com.dag.tinyioc.BeanDefinition;
+import com.dag.tinyioc.beans.BeanDefinition;
 import com.dag.tinyioc.BeanReference;
-import com.dag.tinyioc.PropertyValue;
+import com.dag.tinyioc.beans.PropertyValue;
 
 import java.lang.reflect.Field;
 

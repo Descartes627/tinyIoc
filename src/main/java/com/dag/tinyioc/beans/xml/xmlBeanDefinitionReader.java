@@ -1,10 +1,10 @@
-package com.dag.tinyioc.xml;
+package com.dag.tinyioc.beans.xml;
 
-import com.dag.tinyioc.AbstractBeanDefinitionReader;
-import com.dag.tinyioc.BeanDefinition;
+import com.dag.tinyioc.beans.AbstractBeanDefinitionReader;
+import com.dag.tinyioc.beans.BeanDefinition;
 import com.dag.tinyioc.BeanReference;
-import com.dag.tinyioc.PropertyValue;
-import com.dag.tinyioc.io.ResourceLoader;
+import com.dag.tinyioc.beans.PropertyValue;
+import com.dag.tinyioc.beans.io.ResourceLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -13,7 +13,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.Map;
 
 /**
  * @author: donganguo

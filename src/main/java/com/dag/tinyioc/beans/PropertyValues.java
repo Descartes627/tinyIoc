@@ -1,4 +1,4 @@
-package com.dag.tinyioc;
+package com.dag.tinyioc.beans;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.dag.tinyioc.factory;
+package com.dag.tinyioc.beans.factory;
 
-import com.dag.tinyioc.BeanDefinition;
+import com.dag.tinyioc.beans.BeanDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,6 @@ public abstract class AbstractBeanFactory implements BeanFactory{
     }
 
     //只注册BeanDefinition，实例化bean交给getBean()
-    @Override
     public void registerBeanDefinition(String beanDefinitionName, BeanDefinition beanDefinition) throws Exception {
         beanDefinitionMap.put(beanDefinitionName, beanDefinition);
         beanDefinitionNames.add(beanDefinitionName);

@@ -1,5 +1,7 @@
 package com.dag.tinyioc.io;
 
+import com.dag.tinyioc.beans.io.ResourceLoader;
+import com.dag.tinyioc.beans.io.UrlResource;
 import org.junit.Test;
 
 /**

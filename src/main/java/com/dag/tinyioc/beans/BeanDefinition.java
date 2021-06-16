@@ -1,4 +1,4 @@
-package com.dag.tinyioc;
+package com.dag.tinyioc.beans;
 
 import lombok.Data;
 
