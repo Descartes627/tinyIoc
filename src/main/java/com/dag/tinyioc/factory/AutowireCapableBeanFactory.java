@@ -1,6 +1,9 @@
 package com.dag.tinyioc.factory;
 
 import com.dag.tinyioc.BeanDefinition;
+import com.dag.tinyioc.PropertyValue;
+
+import java.lang.reflect.Field;
 
 /**
  * @author: donganguo
@@ -9,16 +12,22 @@ import com.dag.tinyioc.BeanDefinition;
  */
 public class AutowireCapableBeanFactory extends AbstractBeanFactory{
     @Override
-    protected Object doCreateBean(BeanDefinition beanDefinition) {
-        try {
-            //反射创建对象，注入属性
-            Object bean = beanDefinition.getBeanClass().newInstance();
-            return bean;
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
+    protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception{
+        Object bean = createBeanInstance(beanDefinition);
+        applyPropertyValues(bean, beanDefinition);
+        return bean;
     }
+
+    protected Object createBeanInstance(BeanDefinition beanDefinition) throws Exception{
+        return beanDefinition.getBeanClass().newInstance();
+    }
+
+    protected void applyPropertyValues(Object bean, BeanDefinition beanDefinition) throws  Exception {
+        for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValueList()) {
+            Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
+            declaredField.setAccessible(true);
+            declaredField.set(bean, propertyValue.getValue());
+        }
+    }
+
 }

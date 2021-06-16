@@ -1,7 +1,6 @@
 package com.dag.tinyioc.factory;
 
 import com.dag.tinyioc.BeanDefinition;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,12 +20,12 @@ public abstract class AbstractBeanFactory implements BeanFactory{
     }
 
     @Override
-    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
+    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws Exception {
         Object bean = doCreateBean(beanDefinition);
         beanDefinition.setBean(bean);
         beanDefinitionMap.put(beanName, beanDefinition);
     }
 
 
-    protected abstract Object doCreateBean(BeanDefinition beanDefinition);
+    protected abstract Object doCreateBean(BeanDefinition beanDefinition) throws Exception;
 }
