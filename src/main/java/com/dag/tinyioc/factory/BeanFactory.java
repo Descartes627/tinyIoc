@@ -9,7 +9,7 @@ import com.dag.tinyioc.BeanDefinition;
  */
 public interface BeanFactory {
 
-    Object getBean(String beanName);
+    Object getBean(String beanName) throws Exception;
 
     //手动注册
     void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws Exception;

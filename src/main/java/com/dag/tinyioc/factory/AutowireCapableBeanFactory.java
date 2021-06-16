@@ -1,6 +1,7 @@
 package com.dag.tinyioc.factory;
 
 import com.dag.tinyioc.BeanDefinition;
+import com.dag.tinyioc.BeanReference;
 import com.dag.tinyioc.PropertyValue;
 
 import java.lang.reflect.Field;
@@ -14,6 +15,8 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory{
     @Override
     protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception{
         Object bean = createBeanInstance(beanDefinition);
+        //注入属性前把bean注入beanDefinition,可以避免循环依赖问题。类似filterChain
+        beanDefinition.setBean(bean);
         applyPropertyValues(bean, beanDefinition);
         return bean;
     }
@@ -26,7 +29,12 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory{
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValueList()) {
             Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
             declaredField.setAccessible(true);
-            declaredField.set(bean, propertyValue.getValue());
+            Object value = propertyValue.getValue();
+            if (value instanceof BeanReference) {
+                BeanReference beanReference = (BeanReference) value;
+                value = getBean(beanReference.getName());
+            }
+            declaredField.set(bean, value);
         }
     }
 

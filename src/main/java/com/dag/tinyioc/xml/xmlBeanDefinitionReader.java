@@ -2,6 +2,7 @@ package com.dag.tinyioc.xml;
 
 import com.dag.tinyioc.AbstractBeanDefinitionReader;
 import com.dag.tinyioc.BeanDefinition;
+import com.dag.tinyioc.BeanReference;
 import com.dag.tinyioc.PropertyValue;
 import com.dag.tinyioc.io.ResourceLoader;
 import org.w3c.dom.Document;
@@ -79,8 +80,19 @@ public class xmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             Node node = propertyList.item(i);
             if (node instanceof Element) {
                 Element propertyEle = (Element) node;
-                beanDefinition.getPropertyValues()
-                        .addPropertyValue(new PropertyValue(propertyEle.getAttribute("name"), propertyEle.getAttribute("value")));
+                String name = propertyEle.getAttribute("name");
+                String value = propertyEle.getAttribute("value");
+                if (value != null && value.length() > 0) {
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                }
+                else {
+                    String ref = propertyEle.getAttribute("ref");
+                    if (ref == null || ref.length() == 0)
+                        throw new IllegalArgumentException("Configuration problem: <property> element for property '"
+                                + name + "' must specify a ref or value");
+                    BeanReference beanReference = new BeanReference(name);
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, beanReference));
+                }
             }
         }
     }

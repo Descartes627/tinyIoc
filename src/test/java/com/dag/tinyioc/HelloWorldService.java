@@ -9,11 +9,18 @@ public class HelloWorldService {
 
     private String text;
 
+    private OutputService outputService;
+
     public void hello() {
-        System.out.println(text);
+        System.out.println("helloWorldService call outputService");
+        outputService.output(text);
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setOutputService(OutputService outputService) {
+        this.outputService = outputService;
     }
 }
