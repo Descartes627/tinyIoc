@@ -2,7 +2,11 @@ package com.dag.tinyioc;
 
 import com.dag.tinyioc.factory.AutowireCapableBeanFactory;
 import com.dag.tinyioc.factory.BeanFactory;
+import com.dag.tinyioc.io.ResourceLoader;
+import com.dag.tinyioc.xml.xmlBeanDefinitionReader;
 import org.junit.Test;
+
+import java.util.Map;
 
 
 /**
@@ -17,18 +21,24 @@ public class BeanFactoryTest {
         //1.初始化beanFactory
         BeanFactory beanFactory = new AutowireCapableBeanFactory();
 
-        //2.bean定义
-        BeanDefinition beanDefinition = new BeanDefinition();
-        beanDefinition.setBeanClassName("com.dag.tinyioc.HelloWorldService");
+        xmlBeanDefinitionReader xmlBeanDefinitionReader = new xmlBeanDefinitionReader(new ResourceLoader());
+        xmlBeanDefinitionReader.loadBeanDefinition("tinyioc.xml");
 
-
-        //3.设置属性
-        PropertyValues propertyValues = new PropertyValues();
-        propertyValues.addPropertyValue(new PropertyValue("text", "hello world"));
-        beanDefinition.setPropertyValues(propertyValues);
-
-        //4.将beanDefinition注册到beanFactory
-        beanFactory.registerBeanDefinition("helloWorldService", beanDefinition);
+        for (Map.Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry().entrySet()) {
+            beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
+        }
+//        //2.bean定义
+//        BeanDefinition beanDefinition = new BeanDefinition();
+//        beanDefinition.setBeanClassName("com.dag.tinyioc.HelloWorldService");
+//
+//
+//        //3.设置属性
+//        PropertyValues propertyValues = new PropertyValues();
+//        propertyValues.addPropertyValue(new PropertyValue("text", "hello world"));
+//        beanDefinition.setPropertyValues(propertyValues);
+//
+//        //4.将beanDefinition注册到beanFactory
+//        beanFactory.registerBeanDefinition("helloWorldService", beanDefinition);
 
         //5.获取bean
         HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");
